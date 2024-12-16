@@ -41,18 +41,6 @@ services:
              php artisan migrate --force &&
              php artisan serve --host=0.0.0.0 --port=8000"
 
-  # Serviço do Vue.js
-  vue:
-    build:
-      context: ./systock-vue
-    container_name: vue_app
-    restart: always
-    depends_on:
-      - laravel
-    ports:
-      - "8081:8081"
-    volumes:
-      - ./systock-vue:/app
 
 volumes:
   db_data:
