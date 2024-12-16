@@ -1,6 +1,7 @@
 # Use uma imagem oficial do PHP como base
 FROM php:8.1-fpm
 
+
 # Instale dependências necessárias
 RUN apt-get update && apt-get install -y \
     libpng-dev \
@@ -24,10 +25,10 @@ COPY . .
 # Verifique e crie o .env a partir do .env.example caso não exista
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
 
-# Instale as dependências do Laravel
+# Instale as dependências do Laravel-
 RUN composer install
 
-# Exponha a porta 8000
+# Exponha a porta 8000 -
 EXPOSE 8000
 
 # Inicie o servidor do Laravel

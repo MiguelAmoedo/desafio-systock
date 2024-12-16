@@ -1,7 +1,8 @@
 version: '3.8'
 
+
 services:
-  # Serviço do MySQL
+  # Serviço do MySQL -
   db:
     image: mysql:8.0
     container_name: mysql_container
@@ -16,7 +17,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
-  # Serviço do Laravel
+  # Serviço do Laravel -
   laravel:
     build:
       context: ./systock-laravel
@@ -39,7 +40,7 @@ services:
       sh -c "php artisan migrate --force &&
              php artisan serve --host=0.0.0.0 --port=8000"
 
-  # Serviço do Vue.js
+  # Serviço do Vue.js -
   vue:
     build:
       context: ./systock-vue  
