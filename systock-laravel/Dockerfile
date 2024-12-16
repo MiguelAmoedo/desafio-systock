@@ -18,14 +18,17 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Defina o diretório de trabalho
 WORKDIR /var/www
 
-# Copie os arquivos do projeto para o contêiner
+# Copie o arquivo composer.json e composer.lock para garantir que o Composer baixe as dependências
+COPY composer.json composer.lock ./
+
+# Instale as dependências do Laravel
+RUN composer install --no-dev --optimize-autoloader
+
+# Copie os outros arquivos do projeto
 COPY . .
 
 # Verifique e crie o .env a partir do .env.example caso não exista
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
-
-# Instale as dependências do Laravel
-RUN composer install
 
 # Exponha a porta 8000
 EXPOSE 8000
