@@ -19,7 +19,7 @@ services:
   # Serviço do Laravel
   laravel:
     build:
-      context: ./laravel-systock
+      context: ./systock-laravel
     container_name: laravel_app
     restart: always
     depends_on:
@@ -34,7 +34,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./laravel-systock:/var/www
+      - ./systock-laravel:/var/www
     command: >
       sh -c "php artisan migrate --force &&
              php artisan serve --host=0.0.0.0 --port=8000"
@@ -42,7 +42,7 @@ services:
   # Serviço do Vue.js
   vue:
     build:
-      context: ./vue-systock  
+      context: ./systock-vue  
     container_name: vue_app
     restart: always
     depends_on:
@@ -50,7 +50,7 @@ services:
     ports:
       - "8081:8081"
     volumes:
-      - ./vue-systock:/app  
+      - ./systock-vue:/app  
 
 volumes:
   db_data:
