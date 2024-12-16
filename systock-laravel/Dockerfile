@@ -1,32 +1,26 @@
-# Usa a imagem oficial do PHP com Apache
-FROM php:8.2-apache
+# Use a imagem oficial do PHP com Apache
+FROM php:8.1-apache
 
-# Define o diretório de trabalho dentro do container
-WORKDIR /var/www/html
+# Habilita módulos do Apache e PHP
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev zip git && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd pdo pdo_mysql && \
+    a2enmod rewrite
 
-# Instala dependências do sistema
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    curl \
-    unzip \
-    && docker-php-ext-install pdo_mysql mbstring gd
-
-# Instala o Composer
+# Instalar o Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copia o projeto Laravel para o diretório de trabalho
-COPY . /var/www/html
+# Configura o diretório de trabalho
+WORKDIR /var/www/html
 
-# Define permissões necessárias para o Laravel
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+# Copia o conteúdo do seu projeto para o container
+COPY . .
 
-# Habilita o módulo rewrite do Apache (necessário para o Laravel)
-RUN a2enmod rewrite
+# Instalar dependências do Laravel
+RUN composer install
 
-# Define o ponto de entrada
+# Expor a porta do Apache
+EXPOSE 80
+
+# Definir o comando de inicialização para o Apache
 CMD ["apache2-foreground"]
