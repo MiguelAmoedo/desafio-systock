@@ -1,5 +1,5 @@
 ```markdown
-# Documentação Técnica do Projeto
+# Documentação Técnica do DESAFIO SYSTOCK
 
 ## Descrição
 
@@ -19,8 +19,8 @@ Certifique-se de ter as seguintes ferramentas instaladas em seu ambiente:
 1. Clone o repositório em sua máquina local:
 
    ```bash
-   git clone <URL do repositório>
-   cd <diretório do projeto>
+   git clone https://github.com/MiguelAmoedo/desafio-systock.git
+   cd desafio-systock
    ```
 
 2. Para configurar e rodar os contêineres com todas as dependências do projeto, execute o seguinte comando:
